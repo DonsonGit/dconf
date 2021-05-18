@@ -7,39 +7,45 @@
 " endif
 
 " +================ System =================+ "
-"
-set secure
+
+" set secure
 set number
 set cursorline
 set hidden
-set noexpandtab
+" set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set autoindent
-set list
-set listchars=tab:\|\ ,trail:▫
+" set autoindent
 set scrolloff=4
 set ttimeoutlen=0
 set notimeout
-set viewoptions=cursor,folds,slash,unix
+" set viewoptions=cursor,folds,slash,unix
 set wrap
 set textwidth=0
-set indentexpr=
-set foldmethod=indent
-set foldlevel=99
-set foldenable
-set formatoptions-=tc
-set noshowmode
-set showcmd
-set wildmenu
-set ignorecase
-set smartcase
-set shortmess+=c
-set inccommand=split
-set completeopt=longest,noinsert,menuone,noselect,preview
+" set indentexpr=
+" set foldmethod=indent
+" set foldlevel=99
+" set foldenable
+" set formatoptions-=tc
+" set noshowmode
+" set showcmd
+" set wildmenu
+" set ignorecase
+" set smartcase
+" set shortmess+=c
+" set inccommand=split
+" set completeopt=longest,noinsert,menuone,noselect,preview
 " set ttyfast > this attr has been removed
-set lazyredraw
+set colorcolumn=100
+set updatetime=300
+set virtualedit=block
+set background=dark
+set synmaxcol=128
+set cmdheight=2
+set signcolumn=yes
+" set lazyredraw
+set nolazyredraw
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 set backupdir=~/.config/nvim/tmp/backup
@@ -48,36 +54,8 @@ if has('persistent_undo')
 	set undofile
 	set undodir=~/.config/nvim/tmp/undo
 endif
-set colorcolumn=100
-set updatetime=100
-set virtualedit=block
-set background=dark
-set synmaxcol=128
-set cmdheight=2
-set signcolumn=yes
-
 
 let mapleader="\<space>"
-
-" +================ Terminal Behaviors =================+ "
-
-let g:neoterm_autoscroll = 1
-autocmd TermOpen term://* startinsert
-let g:terminal_color_0  = '#000000'
-let g:terminal_color_1  = '#FF5555'
-let g:terminal_color_2  = '#50FA7B'
-let g:terminal_color_3  = '#F1FA8C'
-let g:terminal_color_4  = '#BD93F9'
-let g:terminal_color_5  = '#FF79C6'
-let g:terminal_color_6  = '#8BE9FD'
-let g:terminal_color_7  = '#BFBFBF'
-let g:terminal_color_8  = '#4D4D4D'
-let g:terminal_color_9  = '#FF6E67'
-let g:terminal_color_10 = '#5AF78E'
-let g:terminal_color_11 = '#F4F99D'
-let g:terminal_color_12 = '#CAA9FA'
-let g:terminal_color_13 = '#FF92D0'
-let g:terminal_color_14 = '#9AEDFE'
 
 " +================ Plugin =================+ "
 
@@ -87,6 +65,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim'
 " Plug 'preservim/nerdtree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
 
@@ -98,6 +77,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'frazrepo/vim-rainbow'
 " Plug 'Lokaltog/vim-easymotion'
 Plug 'liuchengxu/vista.vim'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
@@ -106,7 +86,38 @@ call plug#end()
 colorscheme palenight
 let g:lightline = { 'colorscheme': 'palenight' }
 set t_Co=256
-syntax sync minlines=256
+syntax sync minlines=226
+
+" +================ vim-go.nvim =================+ "
+
+let g:go_echo_go_info = 0
+let g:go_doc_popup_window = 1
+let g:go_def_mapping_enabled = 0
+let g:go_template_autocreate = 0
+let g:go_textobj_enabled = 0
+let g:go_auto_type_info = 1
+let g:go_def_mapping_enabled = 0
+let g:go_addtags_transform = "camelcase"
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_variable_declarations = 0
+let g:go_doc_keywordprg_enabled = 0
 
 " +================ coc.nvim =================+ "
 
@@ -138,10 +149,10 @@ let g:coc_global_extensions = [
 	\ 'coc-vimlsp',
 	\ 'coc-yaml']
 
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 
 nmap <silent> gd <Plug>(coc-definition)
@@ -171,6 +182,8 @@ let g:fzf_layout = { 'down': '~40%' }
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <leader>' :Buffers<CR>
+nnoremap <silent> <leader>n :bn<CR>
+nnoremap <silent> <leader>c :bd<CR>
 
 " +================ fzf.nvim =================+ "
 

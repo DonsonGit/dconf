@@ -97,6 +97,8 @@
 
 	"signature.target": "float",
 
+	"snippets.ultisnips.directories": ["UltiSnips"],
+
 	"typescript.suggestionActions.enabled": true,
 	"typescript.format.enabled": true,
 	"tslint.autoFixOnSave": false,
