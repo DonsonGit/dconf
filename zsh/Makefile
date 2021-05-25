@@ -1,15 +1,11 @@
 
-RC = .zshrcc
-CFGDIR = ${HOME}/.config/d-zsh
+RC = ${HOME}/.zshrc
+CFGDIR = ${HOME}/.config/dconf
 
 install:
-	@mkdir -p ${CFGDIR}
-	cp -R ./ ${CFGDIR}/
-	rm ${CFGDIR}/Makefile
-	echo "source "${CFGDIR}/init.zsh >> ${HOME}/${RC}
-	source ${HOME}/${RC}
+	echo "source "${CFGDIR}/init.zsh >> ${RC}
+	source ${RC}
 	
 clean:
-	rm -rf ${CFGDIR}
 
 .PHONY: clean
