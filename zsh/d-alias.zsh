@@ -1,2 +1,5 @@
 alias vimrc='nvim ~/.config/nvim/init.vim'
 alias lg='lazygit'
+alias cdvim='cd ~/.config/nvim'
+alias cddconf='cd ~/.dconf'
+alias oh='dolphin ~'
